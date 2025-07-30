@@ -1,4 +1,4 @@
-# Captable Processor
+# Captable-Processor
 
 A professional web-based captable management tool for processing multi-tranche investment rounds with comprehensive CSV export functionality.
 
@@ -14,7 +14,7 @@ A professional web-based captable management tool for processing multi-tranche i
 
 ## Live Demo
 
-🚀 **[Launch Captable Processor](https://mr5cell.github.io/captable-processor/)**
+🚀 **[Launch Captable Processor](https://mr5cell.github.io/Captable-Processor/)**
 
 ## Usage
 
@@ -44,8 +44,8 @@ The tool generates professional CSV reports with:
 ## Development
 
 ```bash
-git clone https://github.com/mr5cell/captable-processor.git
-cd captable-processor
+git clone https://github.com/mr5cell/Captable-Processor.git
+cd Captable-Processor
 # Open index.html in your browser
 ```
 
