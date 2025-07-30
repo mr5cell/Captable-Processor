@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captable Processor</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #000080 0%, #1e3a8a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #000080, #1e40af);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .section h2 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, #000080, #1e40af);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 13px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #000080;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+        }
+        
+        input[type="text"], input[type="number"], select {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #000080;
+            box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #000080, #1e40af);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 128, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 128, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        .currency-input {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .currency-input::before {
+            content: "₹";
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-weight: 500;
+            z-index: 1;
+        }
+        
+        .currency-input input {
+            padding-left: 35px !important;
+        }
+        
+        .investor-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 20px;
+            border: 2px solid #f3f4f6;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+        }
+        
+        .investor-row:hover {
+            border-color: #e5e7eb;
+            background: white;
+        }
+        
+        .investor-row input {
+            flex: 1;
+            margin: 0;
+        }
+        
+        .calculations {
+            background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+            border: 2px solid #000080;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .calculations strong {
+            color: #000080;
+        }
+        
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .result-table th {
+            background: linear-gradient(135deg, #000080, #1e40af);
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .result-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+            background: white;
+        }
+        
+        .result-table tr:hover td {
+            background: #f8fafc;
+        }
+        
+        .checkbox-container {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            accent-color: #000080;
+        }
+        
+        .checkbox-container label {
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+        }
+        
+        .esop-input {
+            margin-left: 32px;
+            margin-top: 15px;
+        }
+        
+        .tranche-container {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .tranche-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 15px;
+        }
+        
+        .tranche-title {
+            font-weight: 600;
+            color: #475569;
+            font-size: 1.1rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        
+        .alert {
+            padding: 16px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: #f0f9ff;
+            border-color: #0ea5e9;
+            color: #0c4a6e;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 4px;
+            margin: 20px 0;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #000080;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Captable Processor</h1>
+            <p>Professional captable management with multi-tranche support</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2><span class="section-number">0</span>Company Information</h2>
+                <div class="form-group">
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" id="companyName" placeholder="Enter company name">
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span class="section-number">1</span>Current Shareholding Data</h2>
+                <div class="form-group">
+                    <label>Paste your current captable data (Entity name and Number of Shares):</label>
+                    <textarea id="currentCaptable" placeholder="A       4,937
+B       4,937
+C       1,353
+D       1,353
+E       1,049
+F       201
+GF      542
+H       227
+I       92
+I       53
+J       140
+ESOP    321
+Other   454
+TOTAL   15,659"></textarea>
+                </div>
+                <button class="btn" onclick="parseCaptable()">Parse Captable</button>
+                
+                <div id="parsedData" style="display: none;">
+                    <h3>Parsed Data:</h3>
+                    <table class="result-table" id="currentTable"></table>
+                    <div class="calculations">
+                        <strong>Total Shares: </strong><span id="totalShares"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span class="section-number">2</span>Pre-Money Valuation</h2>
+                <div class="form-group">
+                    <label for="preMoneyValuation">Pre-Money Valuation:</label>
+                    <div class="currency-input">
+                        <input type="text" id="preMoneyValuation" placeholder="1,00,00,000" oninput="formatCurrency(this); calculatePerShare()">
+                    </div>
+                </div>
+                
+                <div id="perShareCalculation" class="calculations" style="display: none;">
+                    <strong>Per Share Value: </strong><span id="perShareValue"></span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span class="section-number">3</span>Investment Structure</h2>
+                <div class="form-group">
+                    <label for="trancheCount">Number of Tranches:</label>
+                    <select id="trancheCount" onchange="updateTranches()">
+                        <option value="1">Single Tranche</option>
+                        <option value="2">2 Tranches</option>
+                        <option value="3">3 Tranches</option>
+                        <option value="4">4 Tranches</option>
+                    </select>
+                </div>
+                
+                <div id="tranchesContainer">
+                    <div class="tranche-container" data-tranche="1">
+                        <div class="tranche-header">
+                            <h3 class="tranche-title">Tranche 1</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>Tranche Amount:</label>
+                            <div class="currency-input">
+                                <input type="text" class="tranche-amount" placeholder="Investment amount for this tranche" oninput="formatCurrency(this); updateRemainingTranches()">
+                            </div>
+                        </div>
+                        <div class="investors-section">
+                            <h4>Investors for this Tranche:</h4>
+                            <div class="investors-container">
+                                <div class="investor-row">
+                                    <input type="text" placeholder="Investor Name" class="investor-name">
+                                    <div class="currency-input">
+                                        <input type="text" placeholder="Investment Amount" class="investor-amount" oninput="formatCurrency(this); calculateNewShares()">
+                                    </div>
+                                    <div class="checkbox-container" style="margin: 0;">
+                                        <input type="checkbox" class="auto-fill-checkbox" onchange="toggleAutoFill(this)">
+                                        <label>Use remaining amount</label>
+                                    </div>
+                                    <button class="btn btn-danger remove-investor" onclick="removeInvestor(this)" style="display: none;">Remove</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="addInvestor(this)">Add Investor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span class="section-number">4</span>ESOP Pool</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="createEsop" onchange="toggleEsopInput()">
+                    <label for="createEsop">Create ESOP pool (if none exists)?</label>
+                </div>
+                <div id="esopInput" class="esop-input" style="display: none;">
+                    <div class="form-group">
+                        <label for="esopPercentage">ESOP Pool Percentage:</label>
+                        <input type="number" id="esopPercentage" placeholder="10" min="0" max="100" step="0.1">
+                        <span style="margin-left: 5px;">%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span class="section-number">5</span>Generate Results</h2>
+                <button class="btn btn-success" onclick="calculateNewCaptable()">Generate Captable(s)</button>
+                
+                <div id="newCaptableResults" style="display: none;">
+                    <div class="tabs" id="resultTabs">
+                        <button class="tab active" onclick="switchTab(0)">Final Result</button>
+                    </div>
+                    <div id="tabContent">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-success" onclick="downloadCSV()">Download CSV</button>
+                        <button class="btn btn-secondary" onclick="exportToGoogleSheets()" id="gsheetsBtn" style="display: none;">Export to Google Sheets</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
