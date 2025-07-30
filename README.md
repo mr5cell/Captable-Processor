@@ -14,7 +14,7 @@ A professional web-based captable management tool for processing multi-tranche i
 
 ## Live Demo
 
-🚀 **[Launch Captable Processor](https://your-username.github.io/captable-processor/)**
+🚀 **[Launch Captable Processor](https://mr5cell.github.io/captable-processor/)**
 
 ## Usage
 
@@ -44,7 +44,7 @@ The tool generates professional CSV reports with:
 ## Development
 
 ```bash
-git clone https://github.com/your-username/captable-processor.git
+git clone https://github.com/mr5cell/captable-processor.git
 cd captable-processor
 # Open index.html in your browser
 ```
